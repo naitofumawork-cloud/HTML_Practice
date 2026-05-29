@@ -7,10 +7,31 @@
 </head>
 <body>
 
-  <h1>Hello HTML!</h1>
-  <p id="text">ここに文字が入ります。</p>
+  <h1 id="title">読書録サイト</h1>
+  
+  <button id="loginBtn">ログイン</button>
+  <div id="loginForm">
+    <input id="loginId" placeholder="ID">
+    <input id="loginPass" type="password" placeholder="パスワード">
+    <button id="btnLoginExec">ログイン実行</button>
+    <button id="goTop1">トップへ戻る</button>
+  </div>
 
-  <button id="btn">クリックしてみる</button>
+
+  <button id="registerBtn">新規登録</button>
+  <div id="registerForm">
+    <input id="registerName" placeholder="名前">
+    <input id="registerPassword" type="text" placeholder="パスワード" pattern="[A-Za-z0-9]+">
+    <button id="registerExecBtn">登録</button>
+    <button id="goTop2">トップへ戻る</button>
+  </div>
+
+
+  <p id="registerResult"></p>
+
+
+ 
+
 
   <script src="script.js"></script>
 </body>
