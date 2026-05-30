@@ -4,9 +4,16 @@ const registerBtn = document.getElementById("registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const registerExecBtn = document.getElementById("registerExecBtn");
+
+const loginExecBtn = document.getElementById("loginExecBtn");
 const passInput = document.getElementById("registerPassword");
 const goTop1 = document.getElementById("goTop1");
 const goTop2 = document.getElementById("goTop2");
+const loginPass = document.getElementById("loginPass");
+
+
+
+
 
 // 最初はフォーム非表示
 loginForm.style.display = "none";
@@ -26,6 +33,44 @@ loginBtn.addEventListener("click", () => {
   registerBtn.style.display = "none";
   loginForm.style.display = "block";
 });
+//パスワード入力後エンターでログインボタンをクリックしたのと同じにする
+loginPass.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("loginExecBtn").click();
+  }
+});
+
+//ログイン実行
+loginExecBtn.addEventListener("click", async () => {
+  
+  const name = document.getElementById("userName").value;
+  const password = document.getElementById("loginPass").value;
+
+  const response = await fetch("http://localhost:8000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name, password })
+  });
+
+  const data = await response.json();
+
+  if (data.status === "ok") {
+    // ログインしたユーザー名を保存
+    localStorage.setItem("currentUserId", data.id);
+    localStorage.setItem("currentUser", name);
+    // role によって遷移先を変える
+    if (data.role === "admin") {
+      window.location.href = "../pages/admin/admin.html";
+    } else {
+      window.location.href = "../pages/users/users.html";
+    }
+  } else {
+    document.getElementById("loginResult").textContent = data.message;
+  }
+});
+
 
 // 新規登録ボタン → 新規登録フォーム表示
 registerBtn.addEventListener("click", () => {
